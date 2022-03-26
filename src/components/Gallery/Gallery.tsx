@@ -1,33 +1,31 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useParams } from 'react-router-dom';
+import { useFetch } from '../../hooks/useFetch';
 
-const imagesUrl =
-  'https://api.thecatapi.com/v1/images/search?limit=10&page=1&category_ids=1';
+import style from './Gallery.module.scss';
+
+const SEARCH_URL =
+  'https://api.thecatapi.com/v1/images/search?limit=10&page=1&category_ids=';
 
 export const Gallery: FC = () => {
   const { categoryId } = useParams();
 
-  const [data, setData] = useState<unknown>();
+  const { data: cats, loading } = useFetch(`${SEARCH_URL}${categoryId}`);
 
-  useEffect(() => {
-    const fetchData = async (url: string) => {
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'x-api-key': process.env.REACT_APP_API_KEY,
-        } as any, // fix this
-      });
-      const data = await res.json();
-      setData(data);
-    };
-    fetchData(imagesUrl);
-  }, []);
+  const mappedImages = cats.map((cat) => {
+    return (
+      <div key={cat.id} className={style.img}>
+        <img src={cat.url} alt='cat' />
+      </div>
+    );
+  });
 
-  const mappedImages = 'Images are supposed to be here';
   return (
     <main>
       <h2>{categoryId}</h2>
-      {mappedImages}
+      <div className={style.gallery}>
+        {loading ? 'Loading...' : mappedImages}
+      </div>
     </main>
   );
 };

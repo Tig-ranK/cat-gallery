@@ -9,12 +9,12 @@ import { Sidebar } from './components/Sidebar/Sidebar';
 import './globalStyles.scss';
 
 export const App: FC = () => {
-  // return <p>{JSON.stringify(data, null, 2)}</p>;
   return (
     <>
       <div className='layout'>
         <h1 className='logo'>Cats Gallery</h1>
         <Sidebar />
+
         <Routes>
           <Route index element={<Home />} />
           <Route path='home' element={<Home />} />

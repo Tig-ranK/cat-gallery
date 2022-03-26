@@ -1,12 +1,12 @@
-.container {
-  padding: 0.5em;
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.gallery {
-  display: flex;
-  flex-direction: row;
-  
-  > * {
-    flex-basis: 40%;
+.img {
+  > img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
   }
 }
