@@ -1,0 +1,17 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.link {
+  background-color: #333;
+  padding: 1em;
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid red;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

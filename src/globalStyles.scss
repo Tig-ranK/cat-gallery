@@ -4,6 +4,7 @@
 
 body {
   margin: 0;
+  font-family: sans-serif;
 }
 
 h1,
@@ -11,4 +12,21 @@ h2,
 h3,
 p {
   margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 150px auto;
+  grid-template-areas:
+    't t'
+    's g';
+}
+
+.logo {
+  grid-area: t;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 0.5em;
 }

@@ -1,0 +1,12 @@
+.container {
+  padding: 0.5em;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  
+  > * {
+    flex-basis: 40%;
+  }
+}
