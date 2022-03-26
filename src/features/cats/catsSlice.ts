@@ -10,6 +10,7 @@ const catsSlice = createSlice({
   name: 'cats',
   initialState,
   reducers: {
+    
   },
 });
 

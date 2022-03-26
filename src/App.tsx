@@ -17,7 +17,6 @@ export const App: FC = () => {
 
         <Routes>
           <Route index element={<Home />} />
-          <Route path='home' element={<Home />} />
           <Route path='categories/:categoryId' element={<Gallery />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

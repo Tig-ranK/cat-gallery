@@ -1,8 +1,17 @@
+import { nanoid } from 'nanoid';
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Cat, useFetch } from '../../hooks/useFetch';
 
 import style from './Gallery.module.scss';
+
+export interface Cat {
+  url: string;
+  id: string;
+  height: number;
+  width: number;
+  breeds: Array<any>;
+  categories: { id: number; name: string }[];
+}
 
 const IMAGES_URL = (limit: number) =>
   `images/search?limit=${limit}&page=1&category_ids=`;
@@ -11,48 +20,38 @@ const MAIN_URL = 'https://api.thecatapi.com/v1/';
 
 export const Gallery: FC = () => {
   const { categoryId } = useParams();
-  const [more, setMore] = useState(false);
-
-  const {
-    data: catsToShow,
-    setData: setCatsToShow,
-    loading,
-  } = useFetch(`${MAIN_URL}${IMAGES_URL(10)}${categoryId}`);
+  const [catsToShow, setCatsToShow] = useState<Cat[]>([]);
+  const [isFetch, setIsFetch] = useState(true);
 
   useEffect(() => {
-    if (!more) return;
+    if (!isFetch) return;
 
-    fetch(`${MAIN_URL}${IMAGES_URL(10)}${categoryId}`, {
+    const url = `${MAIN_URL}${IMAGES_URL(10)}${categoryId}`;
+
+    fetch(url, {
       method: 'GET',
       headers: {
         'x-api-key': process.env.REACT_APP_API_KEY,
       } as any, // fix this
     })
       .then((res) => res.json())
-      .then((newCats) =>
-        // setCatsToShow((prevCats: Cat[]) => [...prevCats, newCats])
-        console.log([...catsToShow, ...newCats])
-      );
-    setMore(false);
-  }, [categoryId, more, setCatsToShow]);
+      .then((newCats) => setCatsToShow((prev) => [...prev, ...newCats]));
 
-  const handleFetch = () => {
-    setMore(true);
-  };
+    setIsFetch(false);
+  }, [categoryId, isFetch]);
 
-  const mappedCats = catsToShow.map((cat) => {
-    return (
-      <div key={cat.id} className={style.img}>
-        <img src={cat.url} alt='cat' />
-      </div>
-    );
-  });
+  const mappedCats = catsToShow.map((cat) => (
+    <div key={nanoid()} className={style.img}>
+      <img src={cat.url} alt='cat' />
+    </div>
+  ));
 
   return (
-    <main>
-      <h2>{categoryId}</h2>
-      <div className={style.gallery}>{loading ? 'Loading...' : mappedCats}</div>
-      <button onClick={handleFetch}>More</button>
+    <main className={style.container}>
+      <div className={style.gallery}>{mappedCats}</div>
+      <button className={style.button} onClick={() => setIsFetch(true)}>
+        More
+      </button>
     </main>
   );
 };
