@@ -10,8 +10,15 @@ const catsSlice = createSlice({
   name: 'cats',
   initialState,
   reducers: {
+    initialCats(state,action) {
+      state=action.payload
+    },
+    addCats(state, action) {
+      state.push(action.payload);
+    },
   },
 });
 
 export default catsSlice.reducer;
 
+export const { addCats } = catsSlice.actions;

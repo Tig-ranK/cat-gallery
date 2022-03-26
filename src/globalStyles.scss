@@ -16,9 +16,9 @@ p {
 
 .layout {
   display: grid;
-  grid-template-columns: 120px auto;
+  grid-template: 50px auto / 120px auto;
   grid-template-areas:
-    't t'
+    's t'
     's g';
 }
 

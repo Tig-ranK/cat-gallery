@@ -8,6 +8,7 @@ import { Sidebar } from './components/Sidebar/Sidebar';
 
 import './globalStyles.scss';
 
+
 export const App: FC = () => {
   return (
     <>
@@ -17,7 +18,6 @@ export const App: FC = () => {
 
         <Routes>
           <Route index element={<Home />} />
-          <Route path='home' element={<Home />} />
           <Route path='categories/:categoryId' element={<Gallery />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
