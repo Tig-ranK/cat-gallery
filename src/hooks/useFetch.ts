@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface Cat {
+export interface Cat {
   url: string;
   id: string;
   height: number;
@@ -11,6 +11,7 @@ interface Cat {
 
 interface Return {
   data: Cat[];
+  setData: any;
   error: boolean;
   loading: boolean;
 }
@@ -36,5 +37,10 @@ export const useFetch = (url: string): Return => {
     fetchData(url);
   }, [url]);
 
-  return { data, error, loading };
+  return {
+    data,
+    setData: (newState: Cat[]) => setData(newState),
+    error,
+    loading,
+  };
 };

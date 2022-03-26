@@ -12,7 +12,7 @@ export const Sidebar: FC = () => {
   );
 
   return (
-    <div className={style.container}>
+    <aside className={style.container}>
       <nav className={style.nav}>
         <Link className={style.link} to='/home'>
           Home
@@ -22,6 +22,6 @@ export const Sidebar: FC = () => {
         </Link>
         {categories}
       </nav>
-    </div>
+    </aside>
   );
 };
